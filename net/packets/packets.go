@@ -22,7 +22,7 @@ type (
 )
 
 var (
-	StateToPackets = map[uint32][]Packet{
+	StateToPackets = map[types.VarInt][]Packet{
 		HANDSHAKE: {
 			&client.Handshake{},
 		},
@@ -36,12 +36,12 @@ var (
 			&client.ChatMessage{},
 		},
 	}
-	StateToPacketLookup map[uint32]map[types.VarInt]Packet
+	StateToPacketLookup map[types.VarInt]map[types.VarInt]Packet
 )
 
 func init() {
 
-	StateToPacketLookup = make(map[uint32]map[types.VarInt]Packet)
+	StateToPacketLookup = make(map[types.VarInt]map[types.VarInt]Packet)
 
 	for state,ps := range StateToPackets {
 		StateToPacketLookup[state] = make(map[types.VarInt]Packet)

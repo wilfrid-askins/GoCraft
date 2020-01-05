@@ -54,6 +54,10 @@ func (s *Session) OnPacket(p packets.Packet) {
 	}
 }
 
+func (s *Session) GetState() types.VarInt {
+	return s.state
+}
+
 func NewSession() Session {
 	return Session{ types.VarInt(packets.HANDSHAKE)}
 }

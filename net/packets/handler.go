@@ -16,14 +16,13 @@ type (
 
 	Receiver interface {
 		OnPacket(Packet)
+		GetState() types.VarInt
 	}
 )
 
 func (h *Handler) Listen(conn net.Conn) {
 	input := bufio.NewReader(conn)
 	defer conn.Close()
-
-	state := uint32(HANDSHAKE)
 
 	for {
 		lenVal, err := types.VarIntDefault.Read(input)
@@ -45,10 +44,10 @@ func (h *Handler) Listen(conn net.Conn) {
 			fmt.Println(err)
 		}
 
-		fmt.Printf("Recieved packet %d in state %d\n", packetType, state)
+		fmt.Printf("Recieved packet %d in state %d\n", packetType, h.receiver.GetState())
 
 		packetID := packetType.(types.VarInt)
-		packet := StateToPacketLookup[state][packetID]
+		packet := StateToPacketLookup[h.receiver.GetState()][packetID]
 
 		fmt.Println("Reading payload")
 		err = packet.Read(payload)

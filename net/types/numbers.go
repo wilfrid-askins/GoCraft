@@ -6,14 +6,16 @@ const (
 	varIntMax = 4
 	varIntValue = 0b0111_1111
 	varIntNextFlag = 0b1000_0000
-
-	VarIntDefault = VarInt(0)
-	CraftShortDefault = CraftShort(0)
-)
+	)
 
 type (
 	VarInt uint32
 	CraftShort int16
+)
+
+var (
+	VarIntDefault = new(VarInt)
+	CraftShortDefault = new(CraftShort)
 )
 
 func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
@@ -23,7 +25,7 @@ func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
 
 		part, err := input.ReadByte()
 		if err != nil {
-			return 0, err
+			return VarInt(0), err
 		}
 
 		num |= uint32(part & varIntValue) << (7 * cur)

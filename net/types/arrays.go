@@ -5,12 +5,12 @@ import (
 	"io"
 )
 
-const (
-	CraftStringDefault = CraftString("")
-)
-
 type (
 	CraftString string
+)
+
+var (
+	CraftStringDefault = new(CraftString)
 )
 
 func (cs *CraftString) Read(input *bufio.Reader) (interface{}, error) {

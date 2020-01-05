@@ -1,7 +1,6 @@
 package main
 
 import (
-	"GoCraft/net/packets"
 	"GoCraft/net/packets/client"
 	"GoCraft/net/types"
 	"fmt"
@@ -24,13 +23,22 @@ const (
 	ReadTemplate = `
 	func (t *%s) Read(in *bufio.Reader) error {
 		%s
+		return nil
 	}`
 	ReadSingleTemplate = `
 	val%s, err := %s.Read(in)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	t.%s = val%s.(%s)`
+	WriteTemplate = `
+	func (t *%s) Write() error {
+		return nil
+	}`
+	GetIDTemplate = `
+	func (t *%s) GetID() types.VarInt {
+		return %d
+	}`
 	DefaultInstPostfix = "Default"
 	TypesPkgSuffix     = "types."
 	StructTag = "packet"
@@ -41,7 +49,7 @@ const (
 func main() {
 	fmt.Println("Generating packet code")
 
-	packetSlice := []packets.Packet{
+	packetSlice := []interface{}{
 		client.Handshake{},
 		client.Request{},
 		client.ChatMessage{},
@@ -50,13 +58,18 @@ func main() {
 	code := make([]byte, 0)
 
 	code = append(code, FileHeader...)
-	code = append(code, Newline...)
-	code = append(code, Newline...)
 
 	for _, p := range packetSlice {
 		sum := getSummary(p)
-		block := fmt.Sprintf(ReadTemplate, sum.name, getReadBody(sum))
-		code = append(code, block...)
+		readBlock := fmt.Sprintf(ReadTemplate, sum.name, getReadBody(sum))
+		writeBlock := getWriteBody(sum)
+		idBlock := getIDBody(sum)
+
+		code = append(code, readBlock...)
+		code = append(code, Newline...)
+		code = append(code, writeBlock...)
+		code = append(code, Newline...)
+		code = append(code, idBlock...)
 		code = append(code, Newline...)
 	}
 
@@ -111,4 +124,14 @@ func getReadBody(sum packetSummary) string {
 	}
 
 	return strings.Join(lines, Newline)
+}
+
+func getWriteBody(sum packetSummary) string {
+
+	return fmt.Sprintf(WriteTemplate, sum.name)
+}
+
+func getIDBody(sum packetSummary) string {
+
+	return fmt.Sprintf(GetIDTemplate, sum.name, sum.id)
 }

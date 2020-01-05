@@ -1,6 +1,9 @@
 package main
 
 import (
+	"GoCraft/net/packets"
+	"GoCraft/net/packets/client"
+	"GoCraft/net/types"
 	"bufio"
 	"bytes"
 	"fmt"
@@ -14,6 +17,34 @@ const (
 	varIntValue = 0b0111_1111
 	varIntNextFlag = 0b1000_0000
 )
+
+type Handler func(packets.Packet)
+
+var handlers = map[uint32]map[types.VarInt]Handler {
+	packets.HANDSHAKE: {
+		0: func(packet packets.Packet) {
+			p := packet.(*client.Handshake)
+			fmt.Printf("Handshake %s %d\n", p.ServerAddress, p.ServerPort)
+		},
+	},
+	packets.STATUS: {
+		// Request
+		0: func(packet packets.Packet) {
+			// p := packet.(*client.Request)
+			fmt.Printf("Request (no fields)\n")
+		},
+	},
+	packets.LOGIN: {
+
+	},
+	packets.PLAY: {
+		// Chat message
+		3: func(packet packets.Packet) {
+			p := packet.(*client.ChatMessage)
+			fmt.Printf("ChatMessage %s\n", p.Message)
+		},
+	},
+}
 
 func main() {
 	fmt.Println("Starting...")
@@ -40,16 +71,15 @@ func handleRequest(conn net.Conn) {
 	input := bufio.NewReader(conn)
 	defer conn.Close()
 
-	state := uint32(0)
+	state := uint32(packets.HANDSHAKE)
 
 	for {
-		length, err := readVarInt(input)
+		lenVal, err := types.VarIntDefault.Read(input)
+		length := lenVal.(types.VarInt)
 
 		if err == io.EOF {
 			continue
 		}
-
-		fmt.Println(length)
 
 		buf := make([]byte, length)
 		_, err = io.ReadFull(input, buf)
@@ -58,97 +88,37 @@ func handleRequest(conn net.Conn) {
 		}
 
 		payload := bufio.NewReader(bytes.NewReader(buf))
-		packetType, err := readVarInt(payload)
+		packetType, err := types.VarIntDefault.Read(payload)
 		if err != nil {
 			fmt.Println(err)
 		}
 
-		if packetType == 0 {
+		fmt.Printf("Recieved packet %d in state %d\n", packetType, state)
 
-			if state == 0 {
-				fmt.Println("Processing handshake")
+		packetID := packetType.(types.VarInt)
+		packet := packets.StateToPacketLookup[state][packetID]
 
-				protocolVersion, err := readVarInt(payload)
-				if err != nil {
-					fmt.Println(err)
-				}
+		fmt.Println("Reading payload")
+		err = packet.Read(payload)
 
-				serverAddr, err := readString(payload)
-				if err != nil {
-					fmt.Println(err)
-				}
+		if err != nil {
+			fmt.Println(err)
+		}
 
-				serverPort, err := readShort(payload)
-				if err != nil {
-					fmt.Println(err)
-				}
+		handler := handlers[state][packetID]
+		handler(packet)
 
-				nextState, err := readVarInt(payload)
-				if err != nil {
-					fmt.Println(err)
-				}
+		if state == packets.HANDSHAKE && packetID == 0 {
+			hs := packet.(*client.Handshake)
+			state = uint32(hs.NextState)
+			fmt.Println("Handshake state change")
+		}
 
-				fmt.Println(protocolVersion)
-				fmt.Println(serverAddr)
-				fmt.Println(serverPort)
-				fmt.Println(nextState)
-
-				state = nextState
-
-			} else {
-				fmt.Println("Processing Request Packet")
-			}
+		if state == packets.STATUS {
+			fmt.Println("Status packet recieved")
 		}
 
 		//// Send response
 		//conn.Write([]byte("hello"))
 	}
-}
-
-func readShort(input *bufio.Reader) (int64, error) {
-	val1, err := input.ReadByte()
-	if err != nil {
-		return 0, err
-	}
-
-	val2, err := input.ReadByte()
-	if err != nil {
-		return 0, err
-	}
-
-	num := int64(val2) | int64(val1) << 8
-
-	return num, nil
-}
-
-func readString(input *bufio.Reader) (string, error) {
-	length, err := readVarInt(input)
-
-	if err != nil {
-		return "", err
-	}
-
-	strBytes := make([]byte, length)
-	io.ReadFull(input, strBytes)
-
-	return string(strBytes), nil
-}
-
-func readVarInt(input *bufio.Reader) (uint32, error) {
-	num := uint32(0)
-
-	for cur := uint32(0); cur <= varIntMax; cur++ {
-
-		part, err := input.ReadByte()
-		if err != nil {
-			return 0, err
-		}
-
-		num |= uint32(part & varIntValue) << (7 * cur)
-		if part & varIntNextFlag == 0 {
-			break
-		}
-	}
-
-	return num, nil
 }

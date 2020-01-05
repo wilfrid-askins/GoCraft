@@ -5,35 +5,57 @@ import (
 	"bufio"
 )
 
-func (t *Handshake) Read(in *bufio.Reader) error {
+func (p *Handshake) Read(in *bufio.Reader) error {
 
 	valProtocolVersion, err := types.VarIntDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	t.ProtocolVersion = valProtocolVersion.(types.VarInt)
+	p.ProtocolVersion = valProtocolVersion.(types.VarInt)
 
 	valServerAddress, err := types.CraftStringDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	t.ServerAddress = valServerAddress.(types.CraftString)
+	p.ServerAddress = valServerAddress.(types.CraftString)
 
 	valServerPort, err := types.CraftShortDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	t.ServerPort = valServerPort.(types.CraftShort)
+	p.ServerPort = valServerPort.(types.CraftShort)
 
 	valNextState, err := types.VarIntDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	t.NextState = valNextState.(types.VarInt)
+	p.NextState = valNextState.(types.VarInt)
 	return nil
 }
 
-func (t *Handshake) Write() error {
+func (p *Handshake) Write(out *bufio.Writer) error {
+	var err error
+
+	err = p.ProtocolVersion.Write(out)
+	if err != nil {
+		return err
+	}
+
+	err = p.ServerAddress.Write(out)
+	if err != nil {
+		return err
+	}
+
+	err = p.ServerPort.Write(out)
+	if err != nil {
+		return err
+	}
+
+	err = p.NextState.Write(out)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -41,12 +63,13 @@ func (t *Handshake) GetID() types.VarInt {
 	return 0
 }
 
-func (t *Request) Read(in *bufio.Reader) error {
+func (p *Request) Read(in *bufio.Reader) error {
 
 	return nil
 }
 
-func (t *Request) Write() error {
+func (p *Request) Write(out *bufio.Writer) error {
+
 	return nil
 }
 
@@ -54,17 +77,24 @@ func (t *Request) GetID() types.VarInt {
 	return 0
 }
 
-func (t *ChatMessage) Read(in *bufio.Reader) error {
+func (p *ChatMessage) Read(in *bufio.Reader) error {
 
 	valMessage, err := types.CraftStringDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	t.Message = valMessage.(types.CraftString)
+	p.Message = valMessage.(types.CraftString)
 	return nil
 }
 
-func (t *ChatMessage) Write() error {
+func (p *ChatMessage) Write(out *bufio.Writer) error {
+	var err error
+
+	err = p.Message.Write(out)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

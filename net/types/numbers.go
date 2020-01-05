@@ -1,6 +1,9 @@
 package types
 
-import "bufio"
+import (
+	"bufio"
+	"encoding/binary"
+)
 
 const (
 	varIntMax = 4
@@ -37,7 +40,26 @@ func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
 	return VarInt(num), nil
 }
 
-func (v *VarInt) Write() error {
+func (v *VarInt) Write(out *bufio.Writer) error {
+	value := *v
+	for {
+		temp := value & varIntValue
+		value = value >> 7
+		if value != 0 {
+			temp |= 0b10000000
+		}
+		_, err := out.Write([]byte{ byte(temp) })
+		//err := binary.Write(out, binary.LittleEndian, temp)
+
+		if err != nil {
+			return err
+		}
+
+		if value == 0 {
+			break
+		}
+	}
+
 	return nil
 }
 
@@ -58,6 +80,7 @@ func (v *CraftShort) Read(input *bufio.Reader) (interface{}, error) {
 	return CraftShort(num), nil
 }
 
-func (v *CraftShort) Write() error {
-	return nil
+// TODO check this works
+func (v *CraftShort) Write(out *bufio.Writer) error {
+	return binary.Write(out, binary.LittleEndian, *v)
 }

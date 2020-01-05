@@ -2,6 +2,7 @@ package main
 
 import (
 	"GoCraft/net/packets/client"
+	"GoCraft/net/packets/server"
 	"GoCraft/net/types"
 	"fmt"
 	"io/ioutil"
@@ -14,14 +15,14 @@ import (
 const (
 	Newline = "\n"
 	FileHeader = `
-	package client
+	package %s
 
 	import (
 		"GoCraft/net/types"
 		"bufio"
 	)`
 	ReadTemplate = `
-	func (t *%s) Read(in *bufio.Reader) error {
+	func (p *%s) Read(in *bufio.Reader) error {
 		%s
 		return nil
 	}`
@@ -30,13 +31,21 @@ const (
 	if err != nil {
 		return err
 	}
-	t.%s = val%s.(%s)`
+	p.%s = val%s.(%s)`
 	WriteTemplate = `
-	func (t *%s) Write() error {
+	func (p *%s) Write(out *bufio.Writer) error {
+		%s
+
 		return nil
 	}`
+	DeclareError = `var err error`
+	WriteSingleTemplate = `
+	err = %s.Write(out)
+	if err != nil {
+		return err
+	}`
 	GetIDTemplate = `
-	func (t *%s) GetID() types.VarInt {
+	func (p *%s) GetID() types.VarInt {
 		return %d
 	}`
 	DefaultInstPostfix = "Default"
@@ -46,23 +55,31 @@ const (
 
 //go:generate go run gen.go
 //go:generate gofmt -w ./net/packets/client/client_gen.go
+//go:generate gofmt -w ./net/packets/server/server_gen.go
 func main() {
 	fmt.Println("Generating packet code")
 
-	packetSlice := []interface{}{
+	writeToFile("./net/packets/client/client_gen.go", "client", []interface{}{
 		client.Handshake{},
 		client.Request{},
 		client.ChatMessage{},
-	}
+	})
+
+	writeToFile("./net/packets/server/server_gen.go", "server", []interface{}{
+		server.Response{},
+	})
+}
+
+func writeToFile(filePath, pkgName string, packetSlice []interface{}) {
+	fmt.Println("Writing to " + filePath)
 
 	code := make([]byte, 0)
-
-	code = append(code, FileHeader...)
+	code = append(code, fmt.Sprintf(FileHeader, pkgName)...)
 
 	for _, p := range packetSlice {
 		sum := getSummary(p)
 		readBlock := fmt.Sprintf(ReadTemplate, sum.name, getReadBody(sum))
-		writeBlock := getWriteBody(sum)
+		writeBlock :=  fmt.Sprintf(WriteTemplate, sum.name, getWriteBody(sum))
 		idBlock := getIDBody(sum)
 
 		code = append(code, readBlock...)
@@ -73,7 +90,7 @@ func main() {
 		code = append(code, Newline...)
 	}
 
-	err := ioutil.WriteFile("./net/packets/client/client_gen.go", code, 0644)
+	err := ioutil.WriteFile(filePath, code, 0644)
 
 	if err != nil {
 		log.Fatal(err)
@@ -127,8 +144,19 @@ func getReadBody(sum packetSummary) string {
 }
 
 func getWriteBody(sum packetSummary) string {
+	lines := make([]string, 0)
 
-	return fmt.Sprintf(WriteTemplate, sum.name)
+	if len(sum.fields) > 0 {
+		lines = append(lines, DeclareError)
+	}
+
+	for _, field := range sum.fields {
+		writeInstName := "p." + field.Name
+		writeVal := fmt.Sprintf(WriteSingleTemplate, writeInstName)
+		lines = append(lines, writeVal)
+	}
+
+	return strings.Join(lines, Newline)
 }
 
 func getIDBody(sum packetSummary) string {

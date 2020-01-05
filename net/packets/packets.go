@@ -16,7 +16,7 @@ const (
 type (
 	Packet interface {
 		Read(*bufio.Reader) error
-		Write() error
+		Write(*bufio.Writer) error
 		GetID() types.VarInt
 	}
 )

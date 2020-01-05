@@ -30,3 +30,19 @@ func (cs *CraftString) Read(input *bufio.Reader) (interface{}, error) {
 
 	return CraftString(string(strBytes)), nil
 }
+
+func (cs *CraftString) Write(out *bufio.Writer) error {
+
+	length := VarInt(len(*cs))
+	err := length.Write(out)
+	if err != nil {
+		return err
+	}
+
+	_, err = out.Write([]byte(*cs))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

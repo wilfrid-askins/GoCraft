@@ -16,7 +16,6 @@ const (
 )
 
 func main() {
-
 	fmt.Println("Starting...")
 
 	// start server
@@ -117,9 +116,7 @@ func readShort(input *bufio.Reader) (int64, error) {
 		return 0, err
 	}
 
-	num := int64(0)
-	num |= int64(val2)
-	num |= int64(val1) << 8
+	num := int64(val2) | int64(val1) << 8
 
 	return num, nil
 }

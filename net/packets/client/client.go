@@ -17,6 +17,11 @@ type (
 		ID int `packet:"0x0"`
 	}
 
+	Ping struct {
+		ID int `packet:"0x01"`
+		Payload types.CraftLong
+	}
+
 	ChatMessage struct {
 		ID int `packet:"0x03"`
 		Message types.CraftString

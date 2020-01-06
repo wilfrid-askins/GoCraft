@@ -4,12 +4,13 @@
     <list default="true" id="91f5ef5a-3ac0-4efd-9869-b552c3fee8b2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/packets/client/client.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/packets/client/client_gen.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/net/packets/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/packets/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/packets/packets.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/packets/packets.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/packets/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/packets/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/server/server_gen.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/net/session/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/session/session.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/types/arrays.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/types/arrays.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/net/types/numbers.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/types/numbers.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

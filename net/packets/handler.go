@@ -61,9 +61,6 @@ func (h *Handler) Listen(conn net.Conn) {
 		}
 
 		h.receiver.OnPacket(packet)
-
-		//// Send response
-		//conn.Write([]byte("hello"))
 	}
 }
 

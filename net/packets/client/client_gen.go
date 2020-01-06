@@ -59,7 +59,7 @@ func (p *Handshake) Write(out *bufio.Writer) error {
 	return nil
 }
 
-func (t *Handshake) GetID() types.VarInt {
+func (p *Handshake) GetID() types.VarInt {
 	return 0
 }
 
@@ -73,7 +73,7 @@ func (p *Request) Write(out *bufio.Writer) error {
 	return nil
 }
 
-func (t *Request) GetID() types.VarInt {
+func (p *Request) GetID() types.VarInt {
 	return 0
 }
 
@@ -98,6 +98,31 @@ func (p *ChatMessage) Write(out *bufio.Writer) error {
 	return nil
 }
 
-func (t *ChatMessage) GetID() types.VarInt {
+func (p *ChatMessage) GetID() types.VarInt {
 	return 3
+}
+
+func (p *Ping) Read(in *bufio.Reader) error {
+
+	valPayload, err := types.CraftLongDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.Payload = valPayload.(types.CraftLong)
+	return nil
+}
+
+func (p *Ping) Write(out *bufio.Writer) error {
+	var err error
+
+	err = p.Payload.Write(out)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *Ping) GetID() types.VarInt {
+	return 1
 }

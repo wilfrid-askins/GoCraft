@@ -14,11 +14,13 @@ const (
 type (
 	VarInt uint32
 	CraftShort int16
+	CraftLong int64
 )
 
 var (
 	VarIntDefault = new(VarInt)
 	CraftShortDefault = new(CraftShort)
+	CraftLongDefault = new(CraftLong)
 )
 
 func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
@@ -83,4 +85,20 @@ func (v *CraftShort) Read(input *bufio.Reader) (interface{}, error) {
 // TODO check this works
 func (v *CraftShort) Write(out *bufio.Writer) error {
 	return binary.Write(out, binary.LittleEndian, *v)
+}
+
+func (v *CraftLong) Read(input *bufio.Reader) (interface{}, error) {
+	longBytes := make([]byte, 8)
+	_, err := input.Read(longBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	value, _ := binary.Varint(longBytes)
+	return CraftLong(value), nil
+}
+
+func (v *CraftLong) Write(out *bufio.Writer) error {
+	_, err := out.Write([]byte{ byte(*v) })
+	return err
 }

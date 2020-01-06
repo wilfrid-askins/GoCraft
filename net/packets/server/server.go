@@ -7,6 +7,11 @@ type (
 		ID int `packet:"0x0"`
 		JsonResponse types.CraftString
 	}
+
+	Pong struct {
+		ID int `packet:"0x01"`
+		Payload types.CraftLong
+	}
 )
 
 var (

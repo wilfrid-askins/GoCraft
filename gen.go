@@ -63,10 +63,12 @@ func main() {
 		client.Handshake{},
 		client.Request{},
 		client.ChatMessage{},
+		client.Ping{},
 	})
 
 	writeToFile("./net/packets/server/server_gen.go", "server", []interface{}{
 		server.Response{},
+		server.Pong{},
 	})
 }
 

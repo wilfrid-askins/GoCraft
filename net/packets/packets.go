@@ -4,6 +4,7 @@ import (
 	"GoCraft/net/packets/client"
 	"GoCraft/net/types"
 	"bufio"
+	"bytes"
 )
 
 const (
@@ -28,6 +29,7 @@ var (
 		},
 		STATUS: {
 			&client.Request{},
+			&client.Ping{},
 		},
 		LOGIN: {
 
@@ -40,7 +42,6 @@ var (
 )
 
 func init() {
-
 	StateToPacketLookup = make(map[types.VarInt]map[types.VarInt]Packet)
 
 	for state,ps := range StateToPackets {
@@ -49,4 +50,42 @@ func init() {
 			StateToPacketLookup[state][p.GetID()] = p
 		}
 	}
+}
+
+func Write(out *bufio.Writer, p Packet) error {
+	pBuffer := &bytes.Buffer{}
+	payload := bufio.NewWriter(pBuffer)
+	pType := types.VarInt(0)
+	err := pType.Write(payload)
+	if err != nil {
+		return err
+	}
+
+	err = p.Write(payload)
+	if err != nil {
+		return err
+	}
+
+	err = payload.Flush()
+	if err != nil {
+		return err
+	}
+
+	length := types.VarInt(pBuffer.Len())
+	err = length.Write(out)
+	if err != nil {
+		return err
+	}
+
+	_, err = out.Write(pBuffer.Bytes())
+	if err != nil {
+		return err
+	}
+
+	err = out.Flush()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

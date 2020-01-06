@@ -126,3 +126,28 @@ func (p *Ping) Write(out *bufio.Writer) error {
 func (p *Ping) GetID() types.VarInt {
 	return 1
 }
+
+func (p *LoginStart) Read(in *bufio.Reader) error {
+
+	valName, err := types.CraftStringDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.Name = valName.(types.CraftString)
+	return nil
+}
+
+func (p *LoginStart) Write(out *bufio.Writer) error {
+	var err error
+
+	err = p.Name.Write(out)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *LoginStart) GetID() types.VarInt {
+	return 0
+}

@@ -58,11 +58,31 @@ func (s *Session) SetOutput(out *bufio.Writer) {
 				fmt.Println(err)
 			}
 			fmt.Printf("Recieved Ping, sent Pong")
+			// TODO close connection
 		},
 	}
 
 	handlers[packets.LOGIN] = map[types.VarInt]Handler{
+		0x0: func(p packets.Packet) {
+			lp := p.(*client.LoginStart)
+			fmt.Println("Login from " + lp.Name)
 
+			success := &server.LoginSuccess{
+				UUID:     "31574af2-21ff-53hf-5832-94b63e5o6678",
+				Username: lp.Name,
+			}
+			err := packets.Write(s.out, success)
+			if err != nil {
+				fmt.Println(err)
+			}
+			// Login start
+			// Optional: Send encryption request
+		},
+		0x1: func(p packets.Packet) {
+			// Optional: Encryption response
+			// Optional: Send set compression
+		},
+		// Finally: Send login success
 	}
 
 	handlers[packets.PLAY] = map[types.VarInt]Handler{

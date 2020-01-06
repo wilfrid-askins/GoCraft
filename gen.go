@@ -64,11 +64,13 @@ func main() {
 		client.Request{},
 		client.ChatMessage{},
 		client.Ping{},
+		client.LoginStart{},
 	})
 
 	writeToFile("./net/packets/server/server_gen.go", "server", []interface{}{
 		server.Response{},
 		server.Pong{},
+		server.LoginSuccess{},
 	})
 }
 

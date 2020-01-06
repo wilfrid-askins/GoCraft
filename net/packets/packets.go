@@ -32,7 +32,7 @@ var (
 			&client.Ping{},
 		},
 		LOGIN: {
-
+			&client.LoginStart{},
 		},
 		PLAY: {
 			&client.ChatMessage{},

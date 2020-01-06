@@ -5,6 +5,7 @@ import (
 )
 
 type (
+	// State Handshake
 	Handshake struct {
 		ID              int               `packet:"0x0"`
 		ProtocolVersion types.VarInt
@@ -13,6 +14,7 @@ type (
 		NextState       types.VarInt
 	}
 
+	// State Status
 	Request struct {
 		ID int `packet:"0x0"`
 	}
@@ -22,6 +24,18 @@ type (
 		Payload types.CraftLong
 	}
 
+	// State Login
+	LoginStart struct {
+		ID int `packet:"0x0"`
+		Name types.CraftString
+	}
+
+	EncryptionResponse struct {
+		ID int `packet:"0x1"`
+
+	}
+
+	// State Play
 	ChatMessage struct {
 		ID int `packet:"0x03"`
 		Message types.CraftString

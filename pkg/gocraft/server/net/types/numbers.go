@@ -6,21 +6,21 @@ import (
 )
 
 const (
-	varIntMax = 4
-	varIntValue = 0b0111_1111
+	varIntMax      = 4
+	varIntValue    = 0b0111_1111
 	varIntNextFlag = 0b1000_0000
-	)
+)
 
 type (
-	VarInt uint32
+	VarInt     uint32
 	CraftShort int16
-	CraftLong int64
+	CraftLong  int64
 )
 
 var (
-	VarIntDefault = new(VarInt)
+	VarIntDefault     = new(VarInt)
 	CraftShortDefault = new(CraftShort)
-	CraftLongDefault = new(CraftLong)
+	CraftLongDefault  = new(CraftLong)
 )
 
 func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
@@ -33,8 +33,8 @@ func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
 			return VarInt(0), err
 		}
 
-		num |= uint32(part & varIntValue) << (7 * cur)
-		if part & varIntNextFlag == 0 {
+		num |= uint32(part&varIntValue) << (7 * cur)
+		if part&varIntNextFlag == 0 {
 			break
 		}
 	}
@@ -50,7 +50,7 @@ func (v *VarInt) Write(out *bufio.Writer) error {
 		if value != 0 {
 			temp |= 0b10000000
 		}
-		_, err := out.Write([]byte{ byte(temp) })
+		_, err := out.Write([]byte{byte(temp)})
 		//err := binary.Write(out, binary.LittleEndian, temp)
 
 		if err != nil {
@@ -77,7 +77,7 @@ func (v *CraftShort) Read(input *bufio.Reader) (interface{}, error) {
 	}
 
 	// TODO change int16
-	num := int64(val2) | int64(val1) << 8
+	num := int64(val2) | int64(val1)<<8
 
 	return CraftShort(num), nil
 }
@@ -99,6 +99,6 @@ func (v *CraftLong) Read(input *bufio.Reader) (interface{}, error) {
 }
 
 func (v *CraftLong) Write(out *bufio.Writer) error {
-	_, err := out.Write([]byte{ byte(*v) })
+	_, err := out.Write([]byte{byte(*v)})
 	return err
 }

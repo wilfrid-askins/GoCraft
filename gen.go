@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoCraft/net/packets/client"
-	"GoCraft/net/packets/server"
-	"GoCraft/net/types"
+	"GoCraft/pkg/gocraft/server/net/packets/client"
+	"GoCraft/pkg/gocraft/server/net/packets/server"
+	"GoCraft/pkg/gocraft/server/net/types"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	Newline = "\n"
+	Newline    = "\n"
 	FileHeader = `
 	package %s
 
@@ -38,7 +38,7 @@ const (
 
 		return nil
 	}`
-	DeclareError = `var err error`
+	DeclareError        = `var err error`
 	WriteSingleTemplate = `
 	err = %s.Write(out)
 	if err != nil {
@@ -50,8 +50,8 @@ const (
 	}`
 	DefaultInstPostfix = "Default"
 	TypesPkgSuffix     = "types."
-	StructTag = "packet"
-	)
+	StructTag          = "packet"
+)
 
 //go:generate go run gen.go
 //go:generate gofmt -w ./net/packets/client/client_gen.go
@@ -83,7 +83,7 @@ func writeToFile(filePath, pkgName string, packetSlice []interface{}) {
 	for _, p := range packetSlice {
 		sum := getSummary(p)
 		readBlock := fmt.Sprintf(ReadTemplate, sum.name, getReadBody(sum))
-		writeBlock :=  fmt.Sprintf(WriteTemplate, sum.name, getWriteBody(sum))
+		writeBlock := fmt.Sprintf(WriteTemplate, sum.name, getWriteBody(sum))
 		idBlock := getIDBody(sum)
 
 		code = append(code, readBlock...)
@@ -103,8 +103,8 @@ func writeToFile(filePath, pkgName string, packetSlice []interface{}) {
 
 type (
 	packetSummary struct {
-		name string
-		id types.VarInt
+		name   string
+		id     types.VarInt
 		fields []reflect.StructField
 	}
 )
@@ -140,7 +140,7 @@ func getReadBody(sum packetSummary) string {
 
 	for _, field := range sum.fields {
 		readInstName := TypesPkgSuffix + field.Type.Name() + DefaultInstPostfix
-		readVal := fmt.Sprintf(ReadSingleTemplate, field.Name, readInstName, field.Name, field.Name, TypesPkgSuffix+ field.Type.Name())
+		readVal := fmt.Sprintf(ReadSingleTemplate, field.Name, readInstName, field.Name, field.Name, TypesPkgSuffix+field.Type.Name())
 		lines = append(lines, readVal)
 	}
 

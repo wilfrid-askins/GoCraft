@@ -1,7 +1,7 @@
 package server
 
 import (
-	"GoCraft/net/types"
+	"GoCraft/pkg/gocraft/server/net/types"
 	"bufio"
 )
 

@@ -2,7 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91f5ef5a-3ac0-4efd-9869-b552c3fee8b2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/gocraft/server/config.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/packets/client/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/packets/server/server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/gocraft/server/play/state.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/gocraft/server/summary.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/config/summary.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/client/client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/client/client_gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/packets/client/client_gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/packets/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/packets.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/packets/packets.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/server/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/packets/server/server_gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/packets/server/server_gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/session/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/session/session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/state/state.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/types/arrays.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/types/arrays.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/types/numbers.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/types/numbers.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/types/types.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +74,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\fab\Desktop\GoCraft\pkg\gocraft\server" />
+      <recent name="C:\Users\fab\Desktop\GoCraft\pkg\gocraft" />
       <recent name="C:\Users\fab\Desktop\GoCraft" />
+      <recent name="C:\Users\fab\Desktop\GoCraft\play" />
       <recent name="C:\Users\fab\Desktop\GoCraft\cmd\gen" />
     </key>
   </component>
@@ -87,5 +112,15 @@
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>direct</proxy>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/gocraft/server/config.go</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

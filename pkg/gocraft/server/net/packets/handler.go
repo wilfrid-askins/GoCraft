@@ -1,7 +1,7 @@
 package packets
 
 import (
-	"GoCraft/net/types"
+	"GoCraft/pkg/gocraft/server/net/types"
 	"bufio"
 	"bytes"
 	"fmt"
@@ -20,6 +20,10 @@ type (
 		SetOutput(out *bufio.Writer)
 	}
 )
+
+func NewHandler(receiver Receiver) Handler {
+	return Handler{receiver}
+}
 
 func (h *Handler) Listen(conn net.Conn) {
 	input := bufio.NewReader(conn)
@@ -62,8 +66,4 @@ func (h *Handler) Listen(conn net.Conn) {
 
 		h.receiver.OnPacket(packet)
 	}
-}
-
-func NewHandler(receiver Receiver) Handler {
-	return Handler{receiver}
 }

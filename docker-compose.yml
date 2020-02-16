@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  consul-agent-1:
+    image: consul:latest
+    ports:
+      - "8500:8500"

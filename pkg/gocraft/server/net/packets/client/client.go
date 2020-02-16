@@ -1,13 +1,13 @@
 package client
 
 import (
-	"GoCraft/net/types"
+	"GoCraft/pkg/gocraft/server/net/types"
 )
 
 type (
 	// State Handshake
 	Handshake struct {
-		ID              int               `packet:"0x0"`
+		ID              int `packet:"0x0"`
 		ProtocolVersion types.VarInt
 		ServerAddress   types.CraftString
 		ServerPort      types.CraftShort
@@ -20,26 +20,23 @@ type (
 	}
 
 	Ping struct {
-		ID int `packet:"0x01"`
+		ID      int `packet:"0x01"`
 		Payload types.CraftLong
 	}
 
 	// State Login
 	LoginStart struct {
-		ID int `packet:"0x0"`
+		ID   int `packet:"0x0"`
 		Name types.CraftString
 	}
 
 	EncryptionResponse struct {
 		ID int `packet:"0x1"`
-
 	}
 
 	// State Play
 	ChatMessage struct {
-		ID int `packet:"0x03"`
+		ID      int `packet:"0x03"`
 		Message types.CraftString
 	}
 )
-
-

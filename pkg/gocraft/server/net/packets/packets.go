@@ -1,8 +1,8 @@
 package packets
 
 import (
-	"GoCraft/net/packets/client"
-	"GoCraft/net/types"
+	"GoCraft/pkg/gocraft/server/net/packets/client"
+	"GoCraft/pkg/gocraft/server/net/types"
 	"bufio"
 	"bytes"
 )
@@ -44,7 +44,7 @@ var (
 func init() {
 	StateToPacketLookup = make(map[types.VarInt]map[types.VarInt]Packet)
 
-	for state,ps := range StateToPackets {
+	for state, ps := range StateToPackets {
 		StateToPacketLookup[state] = make(map[types.VarInt]Packet)
 		for _, p := range ps {
 			StateToPacketLookup[state][p.GetID()] = p

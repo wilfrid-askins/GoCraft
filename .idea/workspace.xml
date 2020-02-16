@@ -2,32 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91f5ef5a-3ac0-4efd-9869-b552c3fee8b2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/server/server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/resolver.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/client/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/handler.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/packets.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/server/server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/session.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/types/arrays.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/types/numbers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/gocraft/packets/types/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/gen.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/packets/client/client.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/packets/client/client_gen.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/packets/handler.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/packets/packets.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/packets/server/server.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/packets/server/server_gen.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/session.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/types/arrays.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/types/numbers.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/net/types/types.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/play/state.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/play/state.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/resolver.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/types/arrays.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/packets/types/arrays.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

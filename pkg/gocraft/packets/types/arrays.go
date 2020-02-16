@@ -31,7 +31,13 @@ func (cs *String) Read(input *bufio.Reader) (interface{}, error) {
 }
 
 func (cs *String) Write(out *bufio.Writer) error {
-	_, err := out.Write([]byte(*cs))
+	length := VarInt(len(*cs))
+	err := length.Write(out)
+	if err != nil {
+		return err
+	}
+
+	_, err = out.Write([]byte(*cs))
 	if err != nil {
 		return err
 	}

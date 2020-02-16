@@ -1,7 +1,7 @@
 package client
 
 import (
-	"GoCraft/pkg/gocraft/net/types"
+	"GoCraft/pkg/gocraft/packets/types"
 	"bufio"
 )
 
@@ -13,17 +13,17 @@ func (p *Handshake) Read(in *bufio.Reader) error {
 	}
 	p.ProtocolVersion = valProtocolVersion.(types.VarInt)
 
-	valServerAddress, err := types.CraftStringDefault.Read(in)
+	valServerAddress, err := types.StringDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	p.ServerAddress = valServerAddress.(types.CraftString)
+	p.ServerAddress = valServerAddress.(types.String)
 
-	valServerPort, err := types.CraftShortDefault.Read(in)
+	valServerPort, err := types.ShortDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	p.ServerPort = valServerPort.(types.CraftShort)
+	p.ServerPort = valServerPort.(types.Short)
 
 	valNextState, err := types.VarIntDefault.Read(in)
 	if err != nil {
@@ -79,11 +79,11 @@ func (p *Request) GetID() types.VarInt {
 
 func (p *ChatMessage) Read(in *bufio.Reader) error {
 
-	valMessage, err := types.CraftStringDefault.Read(in)
+	valMessage, err := types.StringDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	p.Message = valMessage.(types.CraftString)
+	p.Message = valMessage.(types.String)
 	return nil
 }
 
@@ -104,11 +104,11 @@ func (p *ChatMessage) GetID() types.VarInt {
 
 func (p *Ping) Read(in *bufio.Reader) error {
 
-	valPayload, err := types.CraftLongDefault.Read(in)
+	valPayload, err := types.LongDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	p.Payload = valPayload.(types.CraftLong)
+	p.Payload = valPayload.(types.Long)
 	return nil
 }
 
@@ -129,11 +129,11 @@ func (p *Ping) GetID() types.VarInt {
 
 func (p *LoginStart) Read(in *bufio.Reader) error {
 
-	valName, err := types.CraftStringDefault.Read(in)
+	valName, err := types.StringDefault.Read(in)
 	if err != nil {
 		return err
 	}
-	p.Name = valName.(types.CraftString)
+	p.Name = valName.(types.String)
 	return nil
 }
 
@@ -150,4 +150,62 @@ func (p *LoginStart) Write(out *bufio.Writer) error {
 
 func (p *LoginStart) GetID() types.VarInt {
 	return 0
+}
+
+func (p *EncryptionResponse) Read(in *bufio.Reader) error {
+
+	valSharedSecretLength, err := types.VarIntDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.SharedSecretLength = valSharedSecretLength.(types.VarInt)
+
+	valSharedSecret, err := types.BytesDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.SharedSecret = valSharedSecret.(types.Bytes)
+
+	valVerifyTokenLength, err := types.VarIntDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.VerifyTokenLength = valVerifyTokenLength.(types.VarInt)
+
+	valVerifyToken, err := types.BytesDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.VerifyToken = valVerifyToken.(types.Bytes)
+	return nil
+}
+
+func (p *EncryptionResponse) Write(out *bufio.Writer) error {
+	var err error
+
+	err = p.SharedSecretLength.Write(out)
+	if err != nil {
+		return err
+	}
+
+	err = p.SharedSecret.Write(out)
+	if err != nil {
+		return err
+	}
+
+	err = p.VerifyTokenLength.Write(out)
+	if err != nil {
+		return err
+	}
+
+	err = p.VerifyToken.Write(out)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *EncryptionResponse) GetID() types.VarInt {
+	return 1
 }

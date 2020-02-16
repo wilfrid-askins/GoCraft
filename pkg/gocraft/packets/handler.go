@@ -1,10 +1,11 @@
 package packets
 
 import (
-	"GoCraft/pkg/gocraft/net/types"
+	"GoCraft/pkg/gocraft/packets/types"
 	"bufio"
 	"bytes"
-	"fmt"
+	"github.com/icelolly/go-errors"
+	"go.uber.org/zap"
 	"io"
 	"net"
 )
@@ -12,6 +13,7 @@ import (
 type (
 	Handler struct {
 		receiver Receiver
+		logger *zap.Logger
 	}
 
 	Receiver interface {
@@ -21,8 +23,8 @@ type (
 	}
 )
 
-func NewHandler(receiver Receiver) Handler {
-	return Handler{receiver}
+func NewHandler(receiver Receiver, logger *zap.Logger) Handler {
+	return Handler{receiver, logger}
 }
 
 func (h *Handler) Listen(conn net.Conn) {
@@ -43,25 +45,24 @@ func (h *Handler) Listen(conn net.Conn) {
 		buf := make([]byte, length)
 		_, err = io.ReadFull(input, buf)
 		if err != nil {
-			fmt.Println(err)
+			h.logger.Error("failed to read packet data", zap.String("msg", err.Error()))
 		}
 
 		payload := bufio.NewReader(bytes.NewReader(buf))
 		packetType, err := types.VarIntDefault.Read(payload)
 		if err != nil {
-			fmt.Println(err)
+			h.logger.Error("failed to read packet type", zap.String("msg", errors.Message(err)))
 		}
 
-		fmt.Printf("Recieved packet %d in state %d\n", packetType, h.receiver.GetState())
-
 		packetID := packetType.(types.VarInt)
+		h.logger.Info("Received packet", zap.Int("id", int(packetID)), zap.Int("state", int(h.receiver.GetState())))
 		packet := StateToPacketLookup[h.receiver.GetState()][packetID]
 
-		fmt.Println("Reading payload")
+		h.logger.Info("Reading payload")
 		err = packet.Read(payload)
 
 		if err != nil {
-			fmt.Println(err)
+			h.logger.Error("failed to read packet payload", zap.String("msg", errors.Message(err)))
 		}
 
 		h.receiver.OnPacket(packet)

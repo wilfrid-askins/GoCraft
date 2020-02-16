@@ -1,8 +1,8 @@
 package packets
 
 import (
-	"GoCraft/pkg/gocraft/net/packets/client"
-	"GoCraft/pkg/gocraft/net/types"
+	"GoCraft/pkg/gocraft/packets/client"
+	"GoCraft/pkg/gocraft/packets/types"
 	"bufio"
 	"bytes"
 )
@@ -33,6 +33,7 @@ var (
 		},
 		LOGIN: {
 			&client.LoginStart{},
+			&client.EncryptionResponse{},
 		},
 		PLAY: {
 			&client.ChatMessage{},

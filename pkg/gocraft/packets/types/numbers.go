@@ -12,15 +12,15 @@ const (
 )
 
 type (
-	VarInt     uint32
-	CraftShort int16
-	CraftLong  int64
+	VarInt uint32
+	Short  int16
+	Long   int64
 )
 
 var (
-	VarIntDefault     = new(VarInt)
-	CraftShortDefault = new(CraftShort)
-	CraftLongDefault  = new(CraftLong)
+	VarIntDefault = new(VarInt)
+	ShortDefault  = new(Short)
+	LongDefault   = new(Long)
 )
 
 func (v *VarInt) Read(input *bufio.Reader) (interface{}, error) {
@@ -65,7 +65,7 @@ func (v *VarInt) Write(out *bufio.Writer) error {
 	return nil
 }
 
-func (v *CraftShort) Read(input *bufio.Reader) (interface{}, error) {
+func (v *Short) Read(input *bufio.Reader) (interface{}, error) {
 	val1, err := input.ReadByte()
 	if err != nil {
 		return 0, err
@@ -79,15 +79,15 @@ func (v *CraftShort) Read(input *bufio.Reader) (interface{}, error) {
 	// TODO change int16
 	num := int64(val2) | int64(val1)<<8
 
-	return CraftShort(num), nil
+	return Short(num), nil
 }
 
 // TODO check this works
-func (v *CraftShort) Write(out *bufio.Writer) error {
+func (v *Short) Write(out *bufio.Writer) error {
 	return binary.Write(out, binary.LittleEndian, *v)
 }
 
-func (v *CraftLong) Read(input *bufio.Reader) (interface{}, error) {
+func (v *Long) Read(input *bufio.Reader) (interface{}, error) {
 	longBytes := make([]byte, 8)
 	_, err := input.Read(longBytes)
 	if err != nil {
@@ -95,10 +95,10 @@ func (v *CraftLong) Read(input *bufio.Reader) (interface{}, error) {
 	}
 
 	value, _ := binary.Varint(longBytes)
-	return CraftLong(value), nil
+	return Long(value), nil
 }
 
-func (v *CraftLong) Write(out *bufio.Writer) error {
+func (v *Long) Write(out *bufio.Writer) error {
 	_, err := out.Write([]byte{byte(*v)})
 	return err
 }

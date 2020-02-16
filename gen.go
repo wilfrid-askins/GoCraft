@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoCraft/pkg/gocraft/net/packets/client"
-	"GoCraft/pkg/gocraft/net/packets/server"
-	"GoCraft/pkg/gocraft/net/types"
+	"GoCraft/pkg/gocraft/packets/client"
+	"GoCraft/pkg/gocraft/packets/server"
+	"GoCraft/pkg/gocraft/packets/types"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -18,7 +18,7 @@ const (
 	package %s
 
 	import (
-		"GoCraft/net/types"
+		"GoCraft/pkg/gocraft/packets/types"
 		"bufio"
 	)`
 	ReadTemplate = `
@@ -54,22 +54,24 @@ const (
 )
 
 //go:generate go run gen.go
-//go:generate gofmt -w ./net/packets/client/client_gen.go
-//go:generate gofmt -w ./net/packets/server/server_gen.go
+//go:generate gofmt -w ./pkg/gocraft/packets/client/client_gen.go
+//go:generate gofmt -w ./pkg/gocraft/packets/server/server_gen.go
 func main() {
 	fmt.Println("Generating packet code")
 
-	writeToFile("./pkg/gocraft/server/net/packets/client/client_gen.go", "client", []interface{}{
+	writeToFile("./pkg/gocraft/packets/client/client_gen.go", "client", []interface{}{
 		client.Handshake{},
 		client.Request{},
 		client.ChatMessage{},
 		client.Ping{},
 		client.LoginStart{},
+		client.EncryptionResponse{},
 	})
 
-	writeToFile("./pkg/gocraft/server/net/packets/server/server_gen.go", "server", []interface{}{
+	writeToFile("./pkg/gocraft/packets/server/server_gen.go", "server", []interface{}{
 		server.Response{},
 		server.Pong{},
+		server.EncryptionRequest{},
 		server.LoginSuccess{},
 	})
 }

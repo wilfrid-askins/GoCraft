@@ -1,13 +1,13 @@
 package play
 
 import (
-	"GoCraft/pkg/gocraft/net"
+	"GoCraft/pkg/gocraft/packets"
 )
 
 type State struct {
-	sessions []net.Session
+	sessions []packets.Session
 }
 
 func NewState() *State {
-	return &State{sessions: []net.Session{}}
+	return &State{sessions: []packets.Session{}}
 }

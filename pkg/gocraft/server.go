@@ -1,9 +1,9 @@
-package server
+package gocraft
 
 import (
-	"GoCraft/pkg/gocraft/server/net/packets"
-	"GoCraft/pkg/gocraft/server/net/session"
-	"GoCraft/pkg/gocraft/server/play"
+	net2 "GoCraft/pkg/gocraft/net"
+	"GoCraft/pkg/gocraft/net/packets"
+	"GoCraft/pkg/gocraft/play"
 	"encoding/json"
 	"log"
 	"net"
@@ -33,7 +33,7 @@ func (se *Server) Listen() {
 			log.Fatal(err)
 		}
 
-		sess := session.NewSession(se)
+		sess := net2.NewSession(se)
 		handler := packets.NewHandler(&sess)
 		go handler.Listen(conn)
 	}

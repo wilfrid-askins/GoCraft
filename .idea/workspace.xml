@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91f5ef5a-3ac0-4efd-9869-b552c3fee8b2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/resolver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/gocraft/server/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/server/net/session/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/net/session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/server/play/state.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/play/state.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,11 +60,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg/gocraft/server/net" />
       <recent name="C:\Users\fab\Desktop\GoCraft\pkg\gocraft\server" />
       <recent name="C:\Users\fab\Desktop\GoCraft\pkg\gocraft" />
       <recent name="C:\Users\fab\Desktop\GoCraft" />
       <recent name="C:\Users\fab\Desktop\GoCraft\play" />
-      <recent name="C:\Users\fab\Desktop\GoCraft\cmd\gen" />
     </key>
   </component>
   <component name="TypeScriptGeneratedFilesManager">

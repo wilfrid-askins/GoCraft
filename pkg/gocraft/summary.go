@@ -1,7 +1,7 @@
-package server
+package gocraft
 
 import (
-	"GoCraft/pkg/gocraft/server/play"
+	"GoCraft/pkg/gocraft/play"
 )
 
 type (

@@ -1,4 +1,4 @@
-package server
+package gocraft
 
 import (
 	"github.com/hashicorp/consul/api"

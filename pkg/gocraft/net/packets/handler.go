@@ -1,7 +1,7 @@
 package packets
 
 import (
-	"GoCraft/pkg/gocraft/server/net/types"
+	"GoCraft/pkg/gocraft/net/types"
 	"bufio"
 	"bytes"
 	"fmt"

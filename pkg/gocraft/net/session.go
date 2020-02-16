@@ -1,10 +1,10 @@
-package session
+package net
 
 import (
-	packets2 "GoCraft/pkg/gocraft/server/net/packets"
-	client2 "GoCraft/pkg/gocraft/server/net/packets/client"
-	server2 "GoCraft/pkg/gocraft/server/net/packets/server"
-	types2 "GoCraft/pkg/gocraft/server/net/types"
+	packets2 "GoCraft/pkg/gocraft/net/packets"
+	client2 "GoCraft/pkg/gocraft/net/packets/client"
+	server2 "GoCraft/pkg/gocraft/net/packets/server"
+	types2 "GoCraft/pkg/gocraft/net/types"
 	"bufio"
 	"fmt"
 )

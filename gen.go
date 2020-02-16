@@ -1,9 +1,9 @@
 package main
 
 import (
-	"GoCraft/pkg/gocraft/server/net/packets/client"
-	"GoCraft/pkg/gocraft/server/net/packets/server"
-	"GoCraft/pkg/gocraft/server/net/types"
+	"GoCraft/pkg/gocraft/net/packets/client"
+	"GoCraft/pkg/gocraft/net/packets/server"
+	"GoCraft/pkg/gocraft/net/types"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -59,7 +59,7 @@ const (
 func main() {
 	fmt.Println("Generating packet code")
 
-	writeToFile("./net/packets/client/client_gen.go", "client", []interface{}{
+	writeToFile("./pkg/gocraft/server/net/packets/client/client_gen.go", "client", []interface{}{
 		client.Handshake{},
 		client.Request{},
 		client.ChatMessage{},
@@ -67,7 +67,7 @@ func main() {
 		client.LoginStart{},
 	})
 
-	writeToFile("./net/packets/server/server_gen.go", "server", []interface{}{
+	writeToFile("./pkg/gocraft/server/net/packets/server/server_gen.go", "server", []interface{}{
 		server.Response{},
 		server.Pong{},
 		server.LoginSuccess{},

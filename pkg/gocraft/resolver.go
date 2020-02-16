@@ -1,23 +1,22 @@
 package gocraft
 
 import (
-	"GoCraft/pkg/gocraft/server"
-	"GoCraft/pkg/gocraft/server/play"
+	"GoCraft/pkg/gocraft/play"
 	"go.uber.org/zap"
 )
 
 type Resolver struct {
-	config    server.Config
+	config    Config
 	playState *play.State
-	server    *server.Server
+	server    *Server
 	logger    *zap.Logger
 }
 
-func NewResolver(config server.Config, logger *zap.Logger) Resolver {
+func NewResolver(config Config, logger *zap.Logger) Resolver {
 	return Resolver{config: config, logger: logger}
 }
 
-func (r *Resolver) Config() server.Config {
+func (r *Resolver) Config() Config {
 	return r.config
 }
 
@@ -28,9 +27,9 @@ func (r *Resolver) PlayState() *play.State {
 	return r.playState
 }
 
-func (r *Resolver) Server() *server.Server {
+func (r *Resolver) Server() *Server {
 	if r.server == nil {
-		r.server = server.NewServer(r.Config(), r.PlayState())
+		r.server = NewServer(r.Config(), r.PlayState())
 	}
 	return r.server
 }

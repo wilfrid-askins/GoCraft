@@ -1,8 +1,8 @@
 package packets
 
 import (
-	"GoCraft/pkg/gocraft/server/net/packets/client"
-	"GoCraft/pkg/gocraft/server/net/types"
+	"GoCraft/pkg/gocraft/net/packets/client"
+	"GoCraft/pkg/gocraft/net/types"
 	"bufio"
 	"bytes"
 )

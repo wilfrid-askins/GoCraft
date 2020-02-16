@@ -9,7 +9,8 @@ import (
 
 func main() {
 	fmt.Println("Starting...")
-	logger := zap.L()
+	logger := zap.NewExample()
+	defer logger.Sync()
 	conf := server.LoadConfig(logger)
 
 	resolver := gocraft.NewResolver(conf, logger)

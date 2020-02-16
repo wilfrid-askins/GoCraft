@@ -10,7 +10,7 @@ type Resolver struct {
 	config    server.Config
 	playState *play.State
 	server    *server.Server
-	logger *zap.Logger
+	logger    *zap.Logger
 }
 
 func NewResolver(config server.Config, logger *zap.Logger) Resolver {

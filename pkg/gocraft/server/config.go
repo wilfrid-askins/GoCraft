@@ -17,19 +17,18 @@ type (
 func LoadConfig(logger *zap.Logger) Config {
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
-		logger.Fatal("failed to connect to consul", zap.Field{Key:"msg", String: errors.Message(err)})
+		logger.Fatal("failed to connect to consul", zap.String("msg", errors.Message(err)))
 	}
 
-	var out []byte
-	_, err = client.Raw().Query("server", &out, nil)
+	out, _, err := client.KV().Get("server", nil)
 	if err != nil {
-		logger.Fatal("failed to query consul", zap.Field{Key:"msg", String: errors.Message(err)})
+		logger.Fatal("failed to query consul", zap.String("msg", errors.Message(err)))
 	}
 
 	config := Config{}
-	err = yaml.Unmarshal(out, &config)
+	err = yaml.Unmarshal(out.Value, &config)
 	if err != nil {
-		logger.Fatal("failed to unmarshal consul config", zap.Field{Key:"msg", String: errors.Message(err)})
+		logger.Fatal("failed to unmarshal consul config", zap.String("msg", errors.Message(err)))
 	}
 
 	return config

@@ -14,21 +14,21 @@ type (
 	}
 )
 
-func LoadConfig(logger *zap.Logger) Config {
+func LoadConfig(logger *zap.SugaredLogger) Config {
 	client, err := api.NewClient(api.DefaultConfig())
 	if err != nil {
-		logger.Fatal("failed to connect to consul", zap.String("msg", errors.Message(err)))
+		logger.Fatalw("failed to connect to consul", "msg", errors.Message(err))
 	}
 
 	out, _, err := client.KV().Get("server", nil)
 	if err != nil {
-		logger.Fatal("failed to query consul", zap.String("msg", errors.Message(err)))
+		logger.Fatalw("failed to query consul", "msg", errors.Message(err))
 	}
 
 	config := Config{}
 	err = yaml.Unmarshal(out.Value, &config)
 	if err != nil {
-		logger.Fatal("failed to unmarshal consul config", zap.String("msg", errors.Message(err)))
+		logger.Fatalw("failed to unmarshal consul config", "msg", errors.Message(err))
 	}
 
 	return config

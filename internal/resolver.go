@@ -10,10 +10,10 @@ type Resolver struct {
 	config    gocraft.Config
 	playState *play.State
 	server    *gocraft.Server
-	logger    *zap.Logger
+	logger    *zap.SugaredLogger
 }
 
-func NewResolver(config gocraft.Config, logger *zap.Logger) Resolver {
+func NewResolver(config gocraft.Config, logger *zap.SugaredLogger) Resolver {
 	return Resolver{config: config, logger: logger}
 }
 
@@ -21,7 +21,7 @@ func (r *Resolver) Config() gocraft.Config {
 	return r.config
 }
 
-func (r *Resolver) Logger() *zap.Logger {
+func (r *Resolver) Logger() *zap.SugaredLogger {
 	return r.logger
 }
 

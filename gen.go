@@ -72,6 +72,7 @@ func main() {
 		server.Response{},
 		server.Pong{},
 		server.EncryptionRequest{},
+		server.SetCompression{},
 		server.LoginSuccess{},
 	})
 }

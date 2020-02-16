@@ -12,10 +12,10 @@ import (
 type Server struct {
 	config Config
 	state  *play.State
-	logger *zap.Logger
+	logger *zap.SugaredLogger
 }
 
-func NewServer(config Config, playState *play.State, logger *zap.Logger) *Server {
+func NewServer(config Config, playState *play.State, logger *zap.SugaredLogger) *Server {
 	return &Server{config, playState, logger}
 }
 
@@ -43,7 +43,7 @@ func (se *Server) Listen() error {
 func (se *Server) GetSummary() string {
 	text, err := json.Marshal(se.config.GetSummary(se.state))
 	if err != nil {
-		se.logger.Fatal("failed to unmarshal server summary", zap.String("msg", errors.Message(err)))
+		se.logger.Fatalw("failed to unmarshal server summary", "msg", errors.Message(err))
 	}
 	return string(text)
 }

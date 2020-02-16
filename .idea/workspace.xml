@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91f5ef5a-3ac0-4efd-9869-b552c3fee8b2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/gen.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/resolver.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/resolver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/client/client_gen.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/packets/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/packets.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/packets/packets.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/server/server_gen.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/packets/session.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/gocraft/packets/types/arrays.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/packets/types/arrays.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/gocraft/summary.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/gocraft/summary.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,18 +63,21 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config" />
       <recent name="$PROJECT_DIR$/pkg/gocraft/net" />
       <recent name="$PROJECT_DIR$/cmd/server" />
       <recent name="$PROJECT_DIR$/internal" />
       <recent name="$PROJECT_DIR$/pkg/gocraft" />
-      <recent name="$PROJECT_DIR$/pkg/gocraft/server/net" />
     </key>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,14 +105,22 @@
       <screen x="70" y="27" width="1296" height="741" />
     </state>
     <state x="313" y="59" width="800" height="684" key="#GOROOT/70.27.1296.741@70.27.1296.741" timestamp="1581859249695" />
+    <state x="376" y="202" width="673" height="397" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1581874877335">
+      <screen x="70" y="27" width="1296" height="741" />
+    </state>
+    <state x="376" y="202" width="673" height="397" key="#com.intellij.fileTypes.FileTypeChooser/70.27.1296.741@70.27.1296.741" timestamp="1581874877335" />
+    <state x="249" y="227" width="927" height="348" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1581873419075">
+      <screen x="70" y="27" width="1296" height="741" />
+    </state>
+    <state x="249" y="227" width="927" height="348" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog/70.27.1296.741@70.27.1296.741" timestamp="1581873419075" />
     <state x="496" y="159" width="424" height="491" key="FileChooserDialogImpl" timestamp="1581859248237">
       <screen x="70" y="27" width="1296" height="741" />
     </state>
     <state x="496" y="159" width="424" height="491" key="FileChooserDialogImpl/70.27.1296.741@70.27.1296.741" timestamp="1581859248237" />
-    <state x="207" y="31" width="1022" height="737" key="SettingsEditor" timestamp="1581859141068">
+    <state x="207" y="31" width="1022" height="737" key="SettingsEditor" timestamp="1581873472580">
       <screen x="70" y="27" width="1296" height="741" />
     </state>
-    <state x="207" y="31" width="1022" height="737" key="SettingsEditor/70.27.1296.741@70.27.1296.741" timestamp="1581859141068" />
+    <state x="207" y="31" width="1022" height="737" key="SettingsEditor/70.27.1296.741@70.27.1296.741" timestamp="1581873472580" />
     <state x="381" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1581863177629">
       <screen x="70" y="27" width="1296" height="741" />
     </state>

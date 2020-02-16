@@ -10,7 +10,7 @@ import (
 
 func main() {
 	fmt.Println("Starting...")
-	logger := zap.NewExample()
+	logger := zap.NewExample().Sugar()
 	defer logger.Sync()
 	conf := gocraft.LoadConfig(logger)
 

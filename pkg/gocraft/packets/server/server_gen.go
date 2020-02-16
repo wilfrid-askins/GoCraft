@@ -124,6 +124,31 @@ func (p *EncryptionRequest) GetID() types.VarInt {
 	return 1
 }
 
+func (p *SetCompression) Read(in *bufio.Reader) error {
+
+	valThreshold, err := types.VarIntDefault.Read(in)
+	if err != nil {
+		return err
+	}
+	p.Threshold = valThreshold.(types.VarInt)
+	return nil
+}
+
+func (p *SetCompression) Write(out *bufio.Writer) error {
+	var err error
+
+	err = p.Threshold.Write(out)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *SetCompression) GetID() types.VarInt {
+	return 3
+}
+
 func (p *LoginSuccess) Read(in *bufio.Reader) error {
 
 	valUUID, err := types.StringDefault.Read(in)

@@ -36,8 +36,8 @@ func (config Config) GetSummary(state *play.State) Summary {
 
 	return Summary{
 		Version: Version{
-			Name:     "1.15.1",
-			Protocol: 575,
+			Name:     "1.15.2",
+			Protocol: 578,
 		},
 		Players: Players{
 			Max:    config.MaxPlayers,
